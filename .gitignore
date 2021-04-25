@@ -1,0 +1,9 @@
+# Folder
+**/.vs/
+**/.vscode/
+**/__pycache__/
+**/Old/
+
+# Files
+*.pyc
+.env
