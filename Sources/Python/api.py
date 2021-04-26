@@ -1,6 +1,5 @@
 def setup(app):
 
-	@app.route("/testa")
-	def testa():
+	@app.route("/api/test")
+	def api_test():
 		print("Hello Flask!")
-
