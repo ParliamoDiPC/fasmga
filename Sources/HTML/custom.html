@@ -18,10 +18,10 @@
 			cursor: pointer
 		}
 	</style>
-	<title>Nuovo URL | Fasm.ga</title>
+	<title>Nuovo URL personalizzato | Fasm.ga</title>
 </head>
 
-<body onload="checkLogin()">
+<body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="/">Fasm.ga</a>
@@ -32,14 +32,13 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="#">Nuovo URL</a>
+						<a class="nav-link active" aria-current="page" href="#">Nuovo URL personalizzato</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link disabled" href="/custom" tabindex="-1" id="customUrlNavBar">URL
-							personalizzato</a>
+						<a class="nav-link" href="/">URL normale</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link disabled" href="/dashboard" tabindex="-1" id="dashboardNavBar">Dashboard</a>
+						<a class="nav-link" href="/dashboard">Dashboard</a>
 					</li>
 				</ul>
 			</div>
@@ -49,11 +48,25 @@
 		<br>
 		<h1>Accorcia un URL</h1>
 		<br>
-		<form method="post" action="/new">
+		<form method="post" action="/new_custom">
+			<input style="display:none" name="X-Replit-User-Id" id="X-Replit-User-Id" value="{{ ruid }}">
 			<div class="mb-3">
 				<label for="url" class="form-label">URL da accorciare...</label>
 				<input type="url" class="form-control" id="url" name="url" placeholder="https://www.fasm.ga" style="width: 60%"
 					required>
+			</div>
+			<div class="mb-3">
+				<label for="url" class="form-label">Finale personalizzato...</label>
+				<div class="input-group" style="width: 60%">
+					<span class="input-group-text" id="basic-addon1">fasm.ga/</span>
+					<input type="text" id="id" name="id" class="form-control" placeholder="il-mio-url-personalizzato"
+						aria-label="Username" aria-describedby="basic-addon1" required>
+				</div>
+			</div>
+			<div class="mb-3">
+				<label for="password" class="form-label">Password (opzionale)...</label>
+				<input type="password" class="form-control" id="password" name="password" placeholder="lamiapasswordsupersicura"
+					style="width: 60%">
 			</div>
 			<br>
 			<div class="mb-3">
@@ -64,15 +77,5 @@
 		<p>Attenzione: rispetta i <a href="/tos">Termini di Servizio</a>!</p>
 	</center>
 </body>
-
-<script>
-	async function checkLogin() {
-		if ("{{ login }}" == "True") {
-			document.getElementById("customUrlNavBar").className = "nav-link active";
-			document.getElementById("dashboardNavBar").className = "nav-link active";
-		}
-		else return
-	}
-</script>
 
 </html>
