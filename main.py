@@ -1,7 +1,6 @@
 from flask import Flask, render_template, send_from_directory
-import gevent.pywsgi, pymongo, dotenv
-import os, glob, importlib
-
+import gevent.pywsgi, pymongo, dotenv, asyncio
+import os, glob, importlib, json
 dotenv.load_dotenv()
 
 app = Flask("Fasmga", template_folder="Sources/HTML")
@@ -21,9 +20,10 @@ def password_protect_image():
 	return send_from_directory(os.path.join(app.root_path, "Sources/Image"),"password_protected.png")
 
 for filename in [os.path.basename(f)[:-3] for f in glob.glob(os.path.join(os.path.dirname("./Sources/Python/"), "*.py")) if os.path.isfile(f)]:
-	filename = filename.removesuffix(".py")
-	module = importlib.import_module(f"Sources.Python.{filename}")
-	module.setup(app)
+	with open("Sources/Json/ignoreFiles.json", "r") as f: 
+		if not filename in json.load(f):
+			module = importlib.import_module(f"Sources.Python.{filename}")
+			module.setup(app)
 
 if (os.environ.get("FLASK_ENV") == "development"):
 	app.run()
