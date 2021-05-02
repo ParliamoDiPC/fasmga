@@ -12,9 +12,9 @@ def setup(app):
 	def api_create():
 		dbToken = Tokens.find_one({ "Token": request.form["Token"] })
 		if not dbToken: return abort(401, "No Token, No access to api!")
-		if ratelimitCheck(dbToken) == False: return abort(429, "Ralimit!")
-		if not validators.url(str(request.form['Url'])): return abort(400, "Url not valid")
-		if request.form["Url"] in BlackList.find_one({ "id": "608d4635fe59353a3418306c" })["BlackList"]: return abort(403, "Url blaklisted")
+		if ratelimitCheck(dbToken) == False: return abort(429, "Your token has done over 20 API requests in a minute. Wait a minute and try again.")
+		if not validators.url(str(request.form['Url'])): return abort(400, "The URL to short set is bad formed, does the URL set start with \"http://\" or \"https://\" ?")
+		if request.form["Url"] in BlackList.find_one({ "id": "608d4635fe59353a3418306c" })["BlackList"]: return abort(403, "The URL to short set is blacklisted.")
 		urlID = newUrlID()
 		docx = Urls.find_one({ "id": urlID })
 		while docx:
